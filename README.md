@@ -271,6 +271,7 @@ PostgreSQL report if you tried to create `ausleihe` first?
 supply a value explicitly with `INSERT INTO mitglied (mitglied_id, ...) VALUES (5, ...)`?
 
 > PostgreSQL auto-generates the value; you can't insert your own. Trying VALUES (5, ...) gives: ERROR: cannot insert into column "mitglied_id" (column is GENERATED ALWAYS).
+
 **Question 4.3:** `tagesgebuehr` is defined as `NUMERIC(6,2)` while a simpler
 `REAL` would also hold decimal numbers. Give a concrete example of an arithmetic
 result that would differ between the two types when calculating a lending fee.
