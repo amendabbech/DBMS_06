@@ -454,19 +454,19 @@ SELECT * FROM ausleihe;
 filesystem. What is the difference between server-side `COPY` and a
 client-side import? In which scenario would you need the client-side variant?
 
-> *Your answer:*
+> Server-side COPY reads the file on the server itself, so the file must exist there, and only roles with pg_read_server_files can use it. \copy reads the file on the client (psql) and sends the data to the server, so normal users can use it. You need the client-side variant when you're not a superuser, or when the file is on your local machine rather than on the database server (e.g. remote database).
 
 **Question 6.2:** The `NULL ''` option maps empty CSV fields to `NULL`.
 What would happen without this option if the `rueckgabe_datum` field is empty?
 
-> *Your answer:*
+> Without NULL '', an empty field is treated as an empty string '', not NULL. Since rueckgabe_datum is type DATE, this would cause an error: ERROR: invalid input syntax for type date: ""
 
 **Question 6.3:** `ausleihe_id` is `GENERATED ALWAYS AS IDENTITY` and was not
 included in the CSV or the `COPY` column list. How does PostgreSQL handle the
 missing value? What would happen if you tried to include `ausleihe_id` in the
 `COPY` column list with explicit values?
 
-> *Your answer:*
+> Since ausleihe_id was not in the COPY column list, PostgreSQL generates it automatically. If you tried to include ausleihe_id with explicit values, PostgreSQL would reject it: ERROR: cannot insert into column "ausleihe_id"
 
 ---
 
