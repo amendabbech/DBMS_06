@@ -570,7 +570,8 @@ unique in the sample data?
 the query using `EXCEPT` and verify that both variants return the same result.
 Write your rewritten query here:
 
-> SELECT b.titel, b.verlag
+ ```sql
+ SELECT b.titel, b.verlag
 FROM   buch b
 WHERE  b.isbn IN (
     SELECT isbn FROM buch
@@ -579,7 +580,7 @@ WHERE  b.isbn IN (
     FROM   exemplar e
     JOIN   ausleihe a ON a.exemplar_id = e.exemplar_id
 );
-
+```
 Exit `psql`:
 
 ```sql
