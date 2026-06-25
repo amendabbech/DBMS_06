@@ -558,19 +558,27 @@ WHERE  NOT EXISTS (
 performed to always produce a correct result, and does the join order affect
 correctness or only performance?
 
-> *Your answer:*
+> With INNER JOINs, the join order doesn't affect correctness — only performance. PostgreSQL's query planner decides the actual execution order based on statistics and indexes, regardless of how the JOINs are written. (Note: this would differ with OUTER JOINs, where order can affect results.)
 
 **Question 7.2:** Query 2 groups by `m.mitglied_id` in addition to the name
 columns. Why is grouping by the primary key necessary even though names appear
 unique in the sample data?
 
-> *Your answer:*
+> Grouping by the primary key is necessary because it's the only column guaranteed to be unique. Names could theoretically be duplicated (two different members with the same name), and grouping only by name would incorrectly merge them. Also, PostgreSQL requires every non-aggregated SELECT column to appear in GROUP BY.
 
 **Question 7.3:** Query 3 uses `NOT EXISTS` with a correlated subquery. Rewrite
 the query using `EXCEPT` and verify that both variants return the same result.
 Write your rewritten query here:
 
-> *Your rewritten query:*
+> SELECT b.titel, b.verlag
+FROM   buch b
+WHERE  b.isbn IN (
+    SELECT isbn FROM buch
+    EXCEPT
+    SELECT e.isbn
+    FROM   exemplar e
+    JOIN   ausleihe a ON a.exemplar_id = e.exemplar_id
+);
 
 Exit `psql`:
 
