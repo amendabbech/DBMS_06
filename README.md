@@ -737,19 +737,19 @@ ORDER BY reservierungen DESC;
 constraint. What does this prevent, and at which level is this constraint
 enforced — application or database?
 
-> *Your answer:*
+> This prevents the same seat (sitzplatz) from being booked twice for the same screening (vorstellung_id) — i.e. double-booking a seat. This is enforced at the database level, not the application level, so it's guaranteed even if application logic has a bug.
 
 **Question 9.2:** The third query uses `LEFT JOIN` between `vorstellung` and
 `reservierung`. What would be different about the result if you used `JOIN`
 (inner join) instead? Which films would disappear from the result and why?
 
-> *Your answer:*
+>  With JOIN instead of LEFT JOIN, films with no reservations would disappear from the result — in our data, "Goodbye Lenin!" (screening 5 has no reservation). INNER JOIN only returns rows with a match on both sides; if a film has no matching reservation row, it's excluded entirely. LEFT JOIN keeps all rows from the left side and fills missing matches with NULL, which COUNT() turns into 0.
 
 **Question 9.3:** `ON DELETE CASCADE` was chosen for `reservierung.vorstellung_id`,
 but `ON DELETE RESTRICT` for `vorstellung.film_id`. Justify both choices in
 terms of the domain.
 
-> *Your answer:*
+> ON DELETE CASCADE on reservierung.vorstellung_id makes sense because if a screening is cancelled, its reservations no longer make sense and should be removed automatically. ON DELETE RESTRICT on vorstellung.film_id prevents accidentally deleting a film while screenings (and their reservations) still reference it — deleting a film should be a deliberate action, only possible after its screenings are explicitly removed first.
 
 Exit `psql`:
 
@@ -766,7 +766,7 @@ SQLite (DBMS_05) and PostgreSQL (this exercise) are both relational databases,
 but they operate very differently. Name two concrete differences you experienced
 in this exercise — in terms of setup, access control, or SQL behaviour.
 
-> *Your answer:*
+> Two differences: (1) Setup — PostgreSQL requires installing and running a server process in the background, while SQLite is just a single file with no separate server. (2) Access control — PostgreSQL has a role/user system with passwords (we had to create a role with CREATE ROLE ... LOGIN PASSWORD), whereas SQLite relies on filesystem permissions on the database file itself.
 
 **Question B – COPY vs. INSERT:**  
 You inserted the `buch` and `exemplar` rows one at a time, and the `ausleihe`
@@ -774,21 +774,21 @@ rows via `COPY`. For a real import of 50,000 rows, which approach would you
 choose and why? What is the main operational cost of individual `INSERT`
 statements at scale?
 
-> *Your answer:*
+> For 50,000 rows, COPY is the clear choice. Each individual INSERT carries overhead — statement parsing/planning, a network round-trip between client and server, and (unless batched) its own transaction. This overhead adds up massively at scale. COPY is optimized for bulk loading: it streams data in without that per-row overhead.
 
 **Question C – Role model:**  
 You created a dedicated role with `LOGIN` and a password. The `postgres`
 superuser also exists. What is the security principle behind creating a
 separate role instead of always connecting as `postgres`?
 
-> *Your answer:*
+> This follows the principle of least privilege. The postgres superuser has unrestricted access to the entire system — any mistake (e.g. an accidental DROP TABLE) could affect anything, even databases unrelated to the task. A dedicated, limited role only has access to its own databases/objects, which limits the damage from mistakes or compromised credentials.
 
 **Question D – Script-driven setup:**  
 The `kino.sql` script creates the schema and inserts data in one run. What
 is the advantage of this approach over typing the statements interactively?
 Name one situation where an interactive approach is still preferable.
 
-> *Your answer:*
+> Advantage: reproducibility — the script can be re-run anytime (on another machine, after a crash, to rebuild a test database) without remembering or retyping each command, and it's documented/version-controllable (e.g. with Git). An interactive approach is still preferable when debugging or exploring — e.g. testing whether a query returns the right result before committing it to a script.
 
 ---
 
