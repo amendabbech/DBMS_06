@@ -97,7 +97,8 @@ psql --version
 ```
 
 > **Screenshot 2:** Take a screenshot showing the output of both commands.
->
+
+
 > ![image alt](https://github.com/amendabbech/DBMS_06/blob/42f10f2e1cdb66500cf016235df2cc0f5c141c42/2.png)
 
 ---
