@@ -98,7 +98,7 @@ psql --version
 
 > **Screenshot 2:** Take a screenshot showing the output of both commands.
 >
-> `[insert screenshot]`
+> ![image alt](https://github.com/amendabbech/DBMS_06/blob/42f10f2e1cdb66500cf016235df2cc0f5c141c42/2.png)
 
 ---
 
@@ -154,7 +154,7 @@ Exit the superuser session:
 > **Screenshot 3:** Take a screenshot showing the `CREATE ROLE`, `CREATE DATABASE`,
 > and both `SELECT` results inside the `postgres=#` session.
 >
-> `[insert screenshot]`
+> ![image alt](https://github.com/amendabbech/DBMS_06/blob/42f10f2e1cdb66500cf016235df2cc0f5c141c42/3.png)
 
 ---
 
@@ -256,7 +256,7 @@ Inspect the structure of one table:
 > **Screenshot 4:** Take a screenshot showing the output of `\dt` and
 > `\d ausleihe`.
 >
-> `[insert screenshot]`
+> ![image alt](https://github.com/amendabbech/DBMS_06/blob/42f10f2e1cdb66500cf016235df2cc0f5c141c42/4.png)
 
 ### Questions for Section 4
 
@@ -361,7 +361,7 @@ SELECT COUNT(*) FROM mitglied;
 
 > **Screenshot 5:** Take a screenshot showing the three `COUNT(*)` results.
 >
-> `[insert screenshot]`
+> ![image alt](https://github.com/amendabbech/DBMS_06/blob/42f10f2e1cdb66500cf016235df2cc0f5c141c42/5.png)
 
 Exit `psql`:
 
@@ -446,7 +446,7 @@ SELECT * FROM ausleihe;
 
 > **Screenshot 6:** Take a screenshot showing the full output of `SELECT * FROM ausleihe`.
 >
-> `[insert screenshot]`
+> ![image alt](https://github.com/amendabbech/DBMS_06/blob/42f10f2e1cdb66500cf016235df2cc0f5c141c42/6.png)
 
 ### Questions for Section 6
 
@@ -550,7 +550,7 @@ WHERE  NOT EXISTS (
 > **Screenshot 7:** Take a screenshot showing the output of all three queries
 > in sequence in the `psql` shell.
 >
-> `[insert screenshot]`
+> ![image alt](https://github.com/amendabbech/DBMS_06/blob/42f10f2e1cdb66500cf016235df2cc0f5c141c42/7.png)
 
 ### Questions for Section 7
 
@@ -676,7 +676,7 @@ psql -U <your-username> -d kino -f kino.sql
 
 > **Screenshot 8:** Take a screenshot showing the script execution output.
 >
-> `[insert screenshot]`
+> ![image alt](https://github.com/amendabbech/DBMS_06/blob/42f10f2e1cdb66500cf016235df2cc0f5c141c42/8.png)
 
 ---
 
@@ -729,7 +729,7 @@ ORDER BY reservierungen DESC;
 > **Screenshot 9:** Take a screenshot showing the output of all three
 > `SELECT` statements.
 >
-> `[insert screenshot]`
+> ![image alt](https://github.com/amendabbech/DBMS_06/blob/42f10f2e1cdb66500cf016235df2cc0f5c141c42/9.png)
 
 ### Questions for Section 9
 
